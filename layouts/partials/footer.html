@@ -23,7 +23,7 @@
 </script>
 {{if eq .Kind "page" }}
   <script defer src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-  {{ $js := resources.Get "js/highlightjs.js" | resources.Minify | resources.Fingerprint }}
+  {{ $js := resources.Get "js/highlightjs.build.js" | resources.Minify | resources.Fingerprint }}
   <script defer src="{{ $js.Permalink }}"></script>
 {{ end }}
 </body>
