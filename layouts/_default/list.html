@@ -1,57 +1,74 @@
-{{ partial "header.html" . }}
-{{ if not .IsHome }}
+{{- partial "header.html" . -}}
+{{- if not .IsHome -}}
 <header class="list-header">
-  {{ if eq .Data.Singular "tag" }}<span>Tagged in</span>
-  <h1 class="list-title">{{ .Data.Term }}</h1>
-  {{ else }}<h1 class="list-title">Posts</h1>
-  {{ end }}
+  {{- if eq .Data.Singular "tag" -}}<span>Tagged in</span>
+  <h1 class="list-title">{{- .Data.Term -}}</h1>
+  {{- else -}}<h1 class="list-title">Posts</h1>
+  {{- end -}}
 </header>
-{{ end }}
+{{- end -}}
 
-{{ if .Params.type }}
-  {{ $items := where .Pages "Type" "eq" ".Params.type" }}
-  {{ .Scratch.Set "items" $items }}
-{{ else }}
-  {{ $posts := where .Pages "Type" "not in" (slice "page" "image") }}
-  {{ $gallery := where .Pages "Type" "==" "image" }}
-  {{ $latest_posts := first 1 $posts }}
-  {{ $ordinary_posts := after 1 $posts }}
-  {{ $ordinary_items := (union $ordinary_posts $gallery).ByDate.Reverse }}
-  {{ .Scratch.Set "items" (union $latest_posts $ordinary_items) }}
-{{ end }}
+{{- if .Params.type -}}
+  {{- $items := (where .Pages "Type" "eq" ".Params.type") -}}
+  {{- .Scratch.Set "items" $items -}}
+{{- else -}}
+  {{- $posts := (where .Pages "Type" "eq" "posts") -}}
+  {{- $gallery := (where .Pages "Type" "eq" "image") | first 3 -}}
+  {{- $latest_posts := $posts | first 1 -}}
+  {{- $ordinary_posts := $posts | after 1 -}}
+  {{- $ordinary_items := (union $ordinary_posts $gallery).ByDate.Reverse -}}
+  {{- .Scratch.Set "items" (union $latest_posts $ordinary_items) -}}
+{{- end -}}
 
-{{ $paginator := .Paginate (.Scratch.Get "items") (index .Site.Params "paginate" | default 10) }}
-{{ if gt $paginator.TotalPages 0 }}
-  {{ range $index, $page := $paginator.Pages }}
-  {{ if and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0) }}
-    {{ .Scratch.Set "postClass" "first-entry" }}
-    {{ .Scratch.Set "firstEmoji" "<span class=\"welcome-emoji\">👉</span>" }}
-  {{ else }}
-    {{ .Scratch.Set "postClass" "post-entry" }}
-{{ end }}
-<article class="post {{ .Scratch.Get `postClass` }}">
-  <a class="post-link" href="{{ .Permalink }}"></a>
-  <header class="post-header">
-    {{ safeHTML (.Scratch.Get `firstEmoji`) }}
-    <h2 class="post-title">{{ .Title }}</h2>
-  </header>
-  <p class="post-summary">{{ .Summary | plainify | htmlUnescape }}...</p>
-  <footer class="post-footer">
-    <p class="post-meta">{{ .Date.Format "2006.1.2" }}</p>
-  </footer>
-</article>
-{{ end }}
-{{ end }}
-{{ if gt $paginator.TotalPages 1 }}
+{{- $paginator := .Paginate (.Scratch.Get "items") (index .Site.Params "paginate" | default 10) -}}
+{{- if gt $paginator.TotalPages 0 -}}
+  {{- range $index, $page := $paginator.Pages -}}
+    {{- $should_tag_latest_post := (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0)) -}}
+    {{- $is_image_type := (eq $page.Params.type "image") -}}
+
+    {{- if $should_tag_latest_post -}}
+      {{- .Scratch.Set "postClass" (slice "first-entry") -}}
+      {{- .Scratch.Set "firstEmoji" "<span class=\"welcome-emoji\">👉</span>" -}}
+    {{- else -}}
+      {{- .Scratch.Set "postClass" (slice "post-entry" | append (cond $is_image_type "post-entry--image" "" )) -}}
+    {{- end -}}
+
+    {{- $post_class := delimit (.Scratch.Get `postClass`) " " -}}
+    <article class="post {{ $post_class }}">
+      <a class="post-link" href="{{ .Permalink }}"></a>
+      {{- if $is_image_type -}}
+        {{- $image_regexp := "<img.*?src=\"[^\\s]+\".*?/>" -}}
+        {{- $src_regexp := "(https?:)?//?([^\"]+)" -}}
+        {{- $thumbnail_match_results := (.Content | findRE $image_regexp) -}}
+        {{- $thumbnail_raw_html := (index $thumbnail_match_results 0) -}}
+        {{- $imgsrc_match_results := $thumbnail_raw_html | findRE $src_regexp -}}
+        {{- $imgsrc := (index $imgsrc_match_results 0) -}}
+        <div class="post-thumbnail" style="background-image: url({{ $imgsrc }})">
+          <div class="post-thumbnail__description"><p>{{- .Summary | plainify -}}</p></div>
+        </div>
+      {{- else -}}
+        <header class="post-header">
+          {{- safeHTML (.Scratch.Get `firstEmoji`) -}}
+          <h2 class="post-title">{{- .Title -}}</h2>
+        </header>
+        <p class="post-summary">{{- .Summary | plainify | htmlUnescape -}}...</p>
+        <footer class="post-footer">
+          <date class="post-meta">{{- .Date.Format "2006.1.2" -}}</date>
+        </footer>
+      {{- end -}}
+    </article>
+  {{- end -}}
+{{- end -}}
+{{- if gt $paginator.TotalPages 1 -}}
 <footer class="list-footer">
   <nav class="pagination">
-    {{ if $paginator.HasPrev }}
-    <a class="pagination-prev" href="{{ $paginator.Prev.URL }}">← {{ i18n "prevPage" }}</a>
-    {{ end }}
-    {{ if $paginator.HasNext }}
-    <a class="pagination-next" href="{{ $paginator.Next.URL }}">{{ i18n "nextPage" }} →</a>
-    {{ end }}
+    {{- if $paginator.HasPrev -}}
+    <a class="pagination-prev" href="{{ $paginator.Prev.URL }}">← {{- i18n "prevPage" -}}</a>
+    {{- end -}}
+    {{- if $paginator.HasNext -}}
+    <a class="pagination-next" href="{{ $paginator.Next.URL }}">{{- i18n "nextPage" -}} →</a>
+    {{- end -}}
   </nav>
 </footer>
-{{ end }}
-{{ partial "footer.html" . }}
+{{- end -}}
+{{- partial "footer.html" . -}}

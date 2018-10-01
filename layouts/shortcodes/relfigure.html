@@ -1,0 +1,10 @@
+{{ $prefix := .Get "prefix" }}
+{{ $src := .Get "src" }}
+{{ $title := .Get "title" }}
+{{ $relpath := $src | printf "%s/%s" $prefix | relURL }}
+<figure class="post-figure">
+    <img class="post-figure__image" src="{{ $relpath }}"  />
+    <figcaption>
+        <h4 class="post-figure__title">{{ $title }}</h4>
+    </figcaption>
+</figure>
