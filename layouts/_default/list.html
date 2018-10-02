@@ -55,7 +55,7 @@
         </header>
         <p class="post-summary">{{- .Summary | plainify | htmlUnescape -}}...</p>
         <footer class="post-footer">
-          <date class="post-meta">{{- .Date.Format "2006.1.2" -}}</date>
+          <time class="post-meta">{{- .Date.Format "2006.1.2" -}}</time>
         </footer>
       {{- end -}}
     </article>
