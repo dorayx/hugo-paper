@@ -44,7 +44,11 @@
     {{ template "_internal/google_analytics_async.html" . }}
   {{ end }}
 </head>
-<body class="{{if eq .Kind `page` }}single{{else}}list{{ if .IsHome }} home{{ end }}{{end}}">
+{{- $classes := cond (eq .Kind "page") "single" "list" | slice -}}
+{{- $classes := $classes | append (cond (.IsHome) "home" "") -}}
+{{- $classes := $classes | append (cond (eq .Type "image") "single--image" "") -}}
+{{- $classes_string := delimit $classes " " -}}
+<body class="{{ $classes_string }}">
   <header class="header">
     {{ if .IsHome }}
     <h1 class="title"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>

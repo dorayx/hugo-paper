@@ -1,0 +1,18 @@
+{{ partial "header.html" . }}
+{{- $figure_regexp := "<figure.*?>(.|\n)*?</figure>" -}}
+{{- $figure_html_results := .Content | findRE $figure_regexp -}}
+{{- $figure_html := index $figure_html_results 0 -}}
+{{- $content_html := .Content | replaceRE $figure_regexp "" -}}
+<article class="post post-view post-view--image">
+  <div class="post-content post-content--image">
+    {{ $figure_html | safeHTML }}
+    <ul class="post-meta post-meta--image">
+      <li>📍 {{- .Params.location -}}</li>
+      <li>🕛 {{- .Date.Format "2006.1.2" -}}</li>
+    </ul>
+    <div class="post-content__description post-content__description--image">
+      {{ $content_html | safeHTML }}
+    </div>
+  </div>
+</article>
+{{ partial "footer.html" . }}
