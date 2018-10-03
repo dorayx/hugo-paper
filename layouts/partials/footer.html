@@ -22,8 +22,7 @@
   }
 </script>
 {{- if .Scratch.Get "hasQuote" -}}
-  {{ $justfont := resources.Get "js/justfont.js" | resources.Minify | resources.Fingerprint }}
-  <script defer src="{{ $justfont.Permalink }}"></script>
+  {{- partial "justfont-siyuansongti.html" . -}}
 {{- end -}}
 {{- if eq .Kind "page" -}}
   <script defer src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
