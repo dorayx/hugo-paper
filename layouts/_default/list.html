@@ -64,7 +64,7 @@
             {{- $quote_content | safeHTML -}}
             <div class="post-quote__author">by {{ $quote_author | default "anonymous" }}</div>
             {{- if $quote_comment -}}
-              <p class="post-quote__comment">{{- $quote_comment -}}</p>
+              <p class="post-quote__comment post-quote__comment--summary">{{- $quote_comment -}}</p>
             {{- end -}}
           {{- end -}}
         </header>

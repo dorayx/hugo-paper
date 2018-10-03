@@ -210,9 +210,18 @@ pre, code {
   padding-bottom: 30px;
 }
 
-.single--image .main {
+.single.single--image .main {
   margin: 0;
   padding: 0;
+}
+
+.single.single--quote {
+  background-color: #030303;
+  color: #282828;
+}
+
+.single.single--quote .main {
+  padding-top: 25px;
 }
 
 .post-view {
@@ -324,13 +333,17 @@ pre, code {
 }
 
 .post-quote__comment {
+  position: relative;
   margin-top: 20px;
   color: #3c3c3c;
+  padding-top: 50px;
+}
+
+.post-quote__comment.post-quote__comment--summary {
+  padding-top: 10px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  position: relative;
-  padding-top: 10px;
 }
 
 .post-quote__comment::before {
