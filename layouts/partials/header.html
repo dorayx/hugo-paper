@@ -45,7 +45,7 @@
     {{ template "_internal/google_analytics_async.html" . }}
   {{ end }}
 </head>
-{{- $classes := cond (eq .Kind "page") "single" "list" | slice -}}
+{{- $classes := cond (eq .Kind "page") "single" "list" | slice "body" "js-body" -}}
 {{- $classes := $classes | append (cond (.IsHome) "home" "") -}}
 {{- $classes := $classes | append (cond (eq .Type "image") "single--image" "") -}}
 {{- $classes := $classes | append (cond (eq .Type "quote") "single--quote" "") -}}
@@ -54,20 +54,21 @@
 <body class="{{ $classes_string }}">
   <header class="header">
     {{ if .IsHome }}
-    <h1 class="title"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
+    <h1><a class="header__link" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
     {{ else }}
-    <p class="title"><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></p>
+    <p><a class="header__link" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></p>
     {{ end }}
-    <button class="menu-toggle" type="button"></button>
-    <nav class="menu">
-      <ul>
+    <div class="header__nav js-header-menu-button">
+      <span class="header__menuButton"></span>
+      <span class="header__menuCover"></span>
+      <ul class="header__menuContent">
         {{ $currentPage := . }}
         {{ range .Site.Menus.main }}
-        <li class="{{ if $currentPage.IsMenuCurrent `main` . }}active{{ end }}">
-          <a href="{{ .URL }}"><span class="pointer">👉</span>{{ .Pre }} {{ .Name }} {{ .Post }}<span class="pointer">👈</span></a>
+        <li class="header__navItem{{ if $currentPage.IsMenuCurrent `main` . }} header__navItem--active{{ end }}">
+          <a class="header__navLink" href="{{ .URL }}">{{ .Pre }} {{ .Name }} {{ .Post }}</a>
         </li>
         {{ end }}
       </ul>
-    </nav>
+    </div>
   </header>
   <main class="main">

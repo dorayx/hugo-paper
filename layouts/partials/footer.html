@@ -6,28 +6,16 @@
   <span>&middot;</span>
   <span>Drafted by <a href="https://github.com/dorayx" target="_blank">@dorayx</a></span>
 </footer>
-<script src="https://cdn.bootcss.com/instantclick/3.0.1/instantclick.min.js" data-no-instant></script>
-<script data-no-instant>InstantClick.init();</script>
-<script data-no-instant>
-  addMenuListener();
-  InstantClick.on('change', function() {
-    addMenuListener();
-  });
-  function addMenuListener() {
-    const $toggle = document.querySelector('.menu-toggle');
-    const $body = document.querySelector('body');
-    $toggle.addEventListener('click', function() {
-      $body.classList.toggle('noscroll');
-    }, false);
-  }
-</script>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
+{{- $jsHeaderMenu := resources.Get "js/header-menu.build.js" | resources.Minify | resources.Fingerprint -}}
+<script defer src="{{ $jsHeaderMenu.Permalink }}"></script>
 {{- if .Scratch.Get "hasQuote" -}}
   {{- partial "justfont-siyuansongti.html" . -}}
 {{- end -}}
 {{- if eq .Kind "page" -}}
   <script defer src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-  {{- $js := resources.Get "js/highlightjs.build.js" | resources.Minify | resources.Fingerprint -}}
-  <script defer src="{{ $js.Permalink }}"></script>
+  {{- $jsHighlight := resources.Get "js/highlightjs.build.js" | resources.Minify | resources.Fingerprint -}}
+  <script defer src="{{ $jsHighlight.Permalink }}"></script>
 {{- end -}}
 </body>
 </html>
