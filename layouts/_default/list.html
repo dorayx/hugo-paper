@@ -16,9 +16,11 @@
 {{- else -}}
   {{- $posts := (where .Pages "Type" "eq" "posts") -}}
   {{- $gallery := (where .Pages "Type" "eq" "image") | first 3 -}}
+  {{- $quotes := (where .Pages "Type" "eq" "quote") | first 3 -}}
+  {{- .Scratch.Set "hasQuote" $quotes -}}
   {{- $latest_posts := $posts | first 1 -}}
   {{- $ordinary_posts := $posts | after 1 -}}
-  {{- $ordinary_items := (union $ordinary_posts $gallery).ByDate.Reverse -}}
+  {{- $ordinary_items := ($quotes | union $gallery | union $ordinary_posts).ByDate.Reverse -}}
   {{- .Scratch.Set "items" (union $latest_posts $ordinary_items) -}}
 {{- end -}}
 
@@ -27,12 +29,16 @@
   {{- range $index, $page := $paginator.Pages -}}
     {{- $should_tag_latest_post := (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0)) -}}
     {{- $is_image_type := (eq $page.Params.type "image") -}}
+    {{- $is_quote_type := (eq $page.Params.type "quote") -}}
 
     {{- if $should_tag_latest_post -}}
       {{- .Scratch.Set "postClass" (slice "first-entry") -}}
       {{- .Scratch.Set "firstEmoji" "<span class=\"welcome-emoji\">👉</span>" -}}
     {{- else -}}
-      {{- .Scratch.Set "postClass" (slice "post-entry" | append (cond $is_image_type "post-entry--image" "" )) -}}
+      {{- $classes := (slice "post-entry") -}}
+      {{- $classes := ($classes | append (cond $is_image_type "post-entry--image" "" )) -}}
+      {{- $classes := ($classes | append (cond $is_quote_type "post-entry--quote" "" )) -}}
+      {{- .Scratch.Set "postClass" $classes -}}
     {{- end -}}
 
     {{- $post_class := delimit (.Scratch.Get `postClass`) " " -}}
@@ -48,6 +54,20 @@
         <div class="post-thumbnail" style="background-image: url({{ $imgsrc }})">
           <div class="post-thumbnail__description"><p>{{- .Summary | plainify -}}</p></div>
         </div>
+      {{- else if $is_quote_type -}}
+        {{- $quote_author := .Params.author -}}
+        {{- $quote_comment := .Content | replaceRE "<blockquote.*?>(.|\n)*?</blockquote>" "" | plainify | chomp -}}
+        <header class="post-header post-quote">
+          {{- $blockquote := findRE "<blockquote.*?>(.|\n)*?</blockquote>" .Content 1 -}}
+          {{- range $blockquote -}}
+            {{- $quote_content := . | replaceRE "<blockquote.*?>" "<blockquote class=\"post-quote__block js-font-notoserifcjktc\">" -}}
+            {{- $quote_content | safeHTML -}}
+            <div class="post-quote__author">by {{ $quote_author | default "anonymous" }}</div>
+            {{- if $quote_comment -}}
+              <p class="post-quote__comment">{{- $quote_comment -}}</p>
+            {{- end -}}
+          {{- end -}}
+        </header>
       {{- else -}}
         <header class="post-header">
           {{- safeHTML (.Scratch.Get `firstEmoji`) -}}
