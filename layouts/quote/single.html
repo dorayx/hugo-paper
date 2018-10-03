@@ -2,7 +2,7 @@
 {{- .Scratch.Set "hasQuote" "true" -}}
 {{- $quote_author := .Params.author -}}
 {{- $quote_comment := .Content | replaceRE "<blockquote.*?>(.|\n)*?</blockquote>" "" | chomp | safeHTML -}}
-<article class="post-quote">
+<article class="post post-view post-quote">
   {{- $quote_content_classes := slice "post-quote__block" "js-font-notoserifcjktc" -}}
   {{- $quote_content_classes := $quote_content_classes | append (cond .Params.isCJKQuote "post-quote__block--cjk" "") -}}
   {{- $blockquote := findRE "<blockquote.*?>(.|\n)*?</blockquote>" .Content 1 -}}

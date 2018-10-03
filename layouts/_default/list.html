@@ -32,7 +32,7 @@
     {{- $is_quote_type := (eq $page.Params.type "quote") -}}
 
     {{- if $should_tag_latest_post -}}
-      {{- .Scratch.Set "postClass" (slice "first-entry") -}}
+      {{- .Scratch.Set "postClass" (slice "post-entry" "post-entry--first") -}}
       {{- .Scratch.Set "firstEmoji" "<span class=\"welcome-emoji\">👉</span>" -}}
     {{- else -}}
       {{- $classes := (slice "post-entry") -}}
@@ -42,7 +42,10 @@
     {{- end -}}
 
     {{- $post_class := delimit (.Scratch.Get `postClass`) " " -}}
-    <article class="post {{ $post_class }}">
+    {{- if $should_tag_latest_post -}}
+      <div class="featured-post">
+    {{- end -}}
+      <article class="post {{ $post_class }}">
       <a class="post-link" href="{{ .Permalink }}"></a>
       {{- if $is_image_type -}}
         {{- $image_regexp := "<img.*?src=\"[^\\s]+\".*?/>" -}}
@@ -82,6 +85,9 @@
         </footer>
       {{- end -}}
     </article>
+    {{- if $should_tag_latest_post -}}
+      </div>
+    {{- end -}}
   {{- end -}}
 {{- end -}}
 {{- if gt $paginator.TotalPages 1 -}}
