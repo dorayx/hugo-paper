@@ -49,6 +49,7 @@
 {{- $classes := $classes | append (cond (.IsHome) "home" "") -}}
 {{- $classes := $classes | append (cond (eq .Type "image") "single--image" "") -}}
 {{- $classes := $classes | append (cond (eq .Type "quote") "single--quote" "") -}}
+{{- $classes := $classes | append (cond (eq .Type "quotes") "list--quotes" "") -}}
 {{- $classes_string := delimit $classes " " -}}
 <body class="{{ $classes_string }}">
   <header class="header">

@@ -57,10 +57,13 @@
       {{- else if $is_quote_type -}}
         {{- $quote_author := .Params.author -}}
         {{- $quote_comment := .Content | replaceRE "<blockquote.*?>(.|\n)*?</blockquote>" "" | plainify | chomp -}}
+        {{- $quote_content_classes := slice "post-quote__block" "js-font-notoserifcjktc" -}}
+        {{- $quote_content_classes := $quote_content_classes | append (cond .Params.isCJKQuote "post-quote__block--cjk" "") -}}
         <header class="post-header post-quote">
           {{- $blockquote := findRE "<blockquote.*?>(.|\n)*?</blockquote>" .Content 1 -}}
           {{- range $blockquote -}}
-            {{- $quote_content := . | replaceRE "<blockquote.*?>" "<blockquote class=\"post-quote__block js-font-notoserifcjktc\">" -}}
+            {{- $quote_content_element := delimit $quote_content_classes " " | printf "<blockquote class=\"%s\">" -}}
+            {{- $quote_content := . | replaceRE "<blockquote.*?>" $quote_content_element -}}
             {{- $quote_content | safeHTML -}}
             <div class="post-quote__author">by {{ $quote_author | default "anonymous" }}</div>
             {{- if $quote_comment -}}

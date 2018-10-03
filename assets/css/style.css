@@ -81,6 +81,12 @@ pre, code {
 .list {
   background: #f9f9f9;
 }
+
+.list.list--quotes {
+  color: #282828;
+  background-color: #030303;
+}
+
 /* Header
 ============================================================= */
 .header {
@@ -325,6 +331,10 @@ pre, code {
   line-height: 1;
   letter-spacing: 1px;
   color: #E7C994;
+}
+
+.post-quote__block.post-quote__block--cjk {
+  line-height: 1.25;
 }
 
 .post-quote__author {
