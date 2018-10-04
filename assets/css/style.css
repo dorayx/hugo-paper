@@ -177,40 +177,97 @@ pre, code {
 
 .header__nav.active .header__menuContent {
   visibility: visible;
-  right: 0;
+  top: 0;
+  left: 0
 }
 
 .header__menuContent {
   position: fixed;
-  top: 0;
-  right: -100%;
+  top: -100%;
+  left: 100%;
   z-index: 9999;
   visibility: hidden;
-  min-width: 35vw;
+  width: 100vw;
   height: 100vh;
   overflow: auto;
   list-style: none;
   margin: 0;
   display: flex;
-  flex-direction: column;
-  padding: 30px 80px 30px 40px;
-  background-color: #fff;
-  border-top-left-radius: 6px;
-  border-bottom-left-radius: 6px;
-  box-shadow: -5px 0 40px -5px rgba(0,0,0,.1);
+  flex-direction: row;
+  flex-wrap: nowrap;
+  background-color: #f9f9f9;
+  box-shadow: 0 0 15px 6px rgba(0,0,0,.1);
   transition: all .25s cubic-bezier(.4,0,.2,1) 0ms;
 }
 
 .header__navItem {
+  font-weight: bold;
+  flex: 1;
   font-size: 30px;
+  position: relative;
+  display: flex;
+  overflow: hidden;
+  border-right: 1px solid #e9e9e9;
 }
 
 .header__navItem--active {
-  font-weight: bold;
+  background-color: rgba(0, 0, 0, .8);
+  color: #aeaeae;
+  border: none;
+}
+
+.header__navItem:hover:not(.header__navItem--active) {
+  background-color: #ececec;
+}
+
+.header__navItem__headline {
+  display: block;
+  position: absolute;
+  font-size: 280px;
+  line-height: 280px;
+  top: -1%;
+  left: -115px;
+  color: rgba(0, 0, 0, .8);
+}
+
+.header__navItem--active .header__navItem__headline {
+  color: #aeaeae;
+}
+
+.header__navItem__shadow {
+  display: block;
+  position: absolute;
+  font-size: 280px;
+  line-height: 280px;
+  bottom: -8%;
+  right: -168px;
+  color: rgba(186, 186, 186, 0.8);
+}
+
+.header__navItem__text {
+  position: relative;
+  z-index: 2000;
+  flex: 1;
 }
 
 .header__navLink {
-  display: block;
+  display: flex;
+  font-size: 40px;
+  font-family: 'Source Sans Pro', sans-serif;
+  text-transform: uppercase;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (max-width: 767px) {
+  .header__navItem {
+    flex-basis: 100%;
+    max-width: none;
+  }
+
+  .header__menuContent {
+    flex-direction: column;
+  }
 }
 
 /* Main
@@ -510,6 +567,7 @@ pre, code {
 }
 
 .post-content {
+  width: 100%;
   padding-top: 30px;
   word-wrap: break-word;
   font-size: 17px;

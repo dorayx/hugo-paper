@@ -65,7 +65,9 @@
         {{ $currentPage := . }}
         {{ range .Site.Menus.main }}
         <li class="header__navItem{{ if $currentPage.IsMenuCurrent `main` . }} header__navItem--active{{ end }}">
-          <a class="header__navLink" href="{{ .URL }}">{{ .Pre }} {{ .Name }} {{ .Post }}</a>
+          <span class="header__navItem__headline js-font-notoserifcjktc">{{ .Pre }}</span>
+          <span class="header__navItem__shadow js-font-notoserifcjktc">{{ .Pre }}</span>
+          <a class="header__navItem__text header__navLink" href="{{ .URL }}">{{ .Name }}</a>
         </li>
         {{ end }}
       </ul>

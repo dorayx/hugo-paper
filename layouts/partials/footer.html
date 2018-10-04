@@ -9,9 +9,7 @@
 <script defer src="https://cdnjs.cloudflare.com/ajax/libs/fastclick/1.0.6/fastclick.min.js"></script>
 {{- $jsHeaderMenu := resources.Get "js/header-menu.build.js" | resources.Minify | resources.Fingerprint -}}
 <script defer src="{{ $jsHeaderMenu.Permalink }}"></script>
-{{- if .Scratch.Get "hasQuote" -}}
-  {{- partial "justfont-siyuansongti.html" . -}}
-{{- end -}}
+{{- partial "justfont-siyuansongti.html" . -}}
 {{- if eq .Kind "page" -}}
   <script defer src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   {{- $jsHighlight := resources.Get "js/highlightjs.build.js" | resources.Minify | resources.Fingerprint -}}
