@@ -59,7 +59,9 @@
     <p><a class="header__link" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></p>
     {{ end }}
     <div class="header__nav js-header-menu-button">
-      <span class="header__menuButton"></span>
+      <span class="header__menuButton">
+        <span class="iconMenuHamburger"></span>
+      </span>
       <span class="header__menuCover"></span>
       <ul class="header__menuContent">
         {{ $currentPage := . }}

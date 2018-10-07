@@ -119,6 +119,8 @@ pre, code {
   height: 65px;
   position: relative;
   padding: 0 30px;
+  display: flex;
+  align-items: center;
 }
 
 .header__link {
@@ -130,30 +132,59 @@ pre, code {
 }
 
 .header__menuButton {
-  display: block;
-  min-width: 20px;
-  height: 100%;
-  position: relative;
+  display: flex;
+  width: 50px;
+  height: 50px;
   cursor: pointer;
+  position: relative;
+  z-index: 99999;
+  align-items: center;
+  justify-content: center;
 }
 
-.header__menuButton::before,
-.header__menuButton::after {
-  content: '';
+.header__nav.active .header__menuButton {
+  border-radius: 50%;
+  background-color: #636363;
+  box-shadow: 0 5px 40px -5px rgba(0, 0, 0, .1);
+}
+
+.iconMenuHamburger {
+  position: relative;
+  display: block;
+  width: 23px;
+  height: 13px;
+}
+
+.iconMenuHamburger::before,
+.iconMenuHamburger::after {
+  content: "";
+  display: block;
   position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 20px;
+  width: 100%;
   height: 2px;
   background: #000;
+  transform: rotate(0deg);
+  transition: all .5s cubic-bezier(.4,0,.2,1);
 }
 
-.header__menuButton::before {
-  transform: translate3d(-50%, -5px, 0);
+.iconMenuHamburger::before {
+  top: 0;
 }
 
-.header__menuButton::after {
-  transform: translate3d(-50%, 5px, 0);
+.iconMenuHamburger::after {
+  bottom: 0;
+}
+
+.header__nav.active .iconMenuHamburger::before {
+  background: #fff;
+  top: 50%;
+  transform: rotate(-45deg);
+}
+
+.header__nav.active .iconMenuHamburger::after {
+  background: #fff;
+  top: 50%;
+  transform: rotate(45deg);
 }
 
 .header__nav.active .header__menuCover {
@@ -178,13 +209,12 @@ pre, code {
 .header__nav.active .header__menuContent {
   visibility: visible;
   top: 0;
-  left: 0
 }
 
 .header__menuContent {
   position: fixed;
   top: -100%;
-  left: 100%;
+  left: 0;
   z-index: 9999;
   visibility: hidden;
   width: 100vw;
@@ -220,6 +250,11 @@ pre, code {
   background-color: #ececec;
 }
 
+.header__navItem:hover:not(.header__navItem--active) .header__navItem__headline,
+.header__navItem:hover:not(.header__navItem--active) .header__navItem__shadow {
+  transform: scale(1.2);
+}
+
 .header__navItem__headline {
   display: block;
   position: absolute;
@@ -228,6 +263,8 @@ pre, code {
   top: -1%;
   left: -115px;
   color: rgba(0, 0, 0, .8);
+  transform: scale(1);
+  transition: all .25s cubic-bezier(.4,0,.2,1) 0ms;
 }
 
 .header__navItem--active .header__navItem__headline {
@@ -242,6 +279,8 @@ pre, code {
   bottom: -8%;
   right: -168px;
   color: rgba(186, 186, 186, 0.8);
+  transform: scale(1);
+  transition: all .25s cubic-bezier(.4,0,.2,1) 0ms;
 }
 
 .header__navItem__text {
@@ -257,6 +296,12 @@ pre, code {
   text-transform: uppercase;
   align-items: center;
   justify-content: center;
+  transform: scale(1);
+  transition: all .25s cubic-bezier(.4,0,.2,1) 0ms;
+}
+
+.header__navItem:hover:not(.header__navItem--active) .header__navLink {
+  transform: scale(.65);
 }
 
 @media (max-width: 767px) {
