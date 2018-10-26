@@ -11,10 +11,10 @@
 {{- end -}}
 
 {{- if .Params.type -}}
-  {{- $items := (where .Pages "Type" "eq" ".Params.type") -}}
+  {{- $items := where (where .Pages "Type" "eq" ".Params.type") ".Params.early_access" "!=" "true" -}}
   {{- .Scratch.Set "items" $items -}}
 {{- else -}}
-  {{- $posts := (where .Pages "Type" "eq" "posts") -}}
+  {{- $posts := where (where .Pages "Type" "eq" "posts") ".Params.early_access" "!=" "true" -}}
   {{- $gallery := (where .Pages "Type" "eq" "image") | first 3 -}}
   {{- $quotes := (where .Pages "Type" "eq" "quote") | first 3 -}}
   {{- .Scratch.Set "hasQuote" $quotes -}}
