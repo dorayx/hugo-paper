@@ -867,3 +867,16 @@ pre, code {
 img[src^="http://ds.justfont.com"] {
   display: none !important;
 }
+
+.tex2jax {
+  overflow: auto;
+  margin-bottom: 20px;
+}
+
+.scrollable-table {
+  overflow: auto;
+}
+
+.scrollable-table--largest table {
+  min-width: 700px;
+}
