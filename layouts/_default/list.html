@@ -55,7 +55,7 @@
         {{- $imgsrc_match_results := $thumbnail_raw_html | findRE $src_regexp -}}
         {{- $imgsrc := (index $imgsrc_match_results 0) -}}
         <div class="post-thumbnail" style="background-image: url({{ $imgsrc }})">
-          <div class="post-thumbnail__description"><p>{{- .Summary | plainify -}}</p></div>
+          <div class="post-thumbnail__description"><p>{{- .Summary  | plainify | htmlUnescape -}}</p></div>
         </div>
       {{- else if $is_quote_type -}}
         {{- $quote_author := .Params.author -}}
