@@ -319,6 +319,22 @@ pre, code {
   .header__menuContent {
     flex-direction: column;
   }
+
+  .header__navItem__headline {
+    font-size: 100px;
+    line-height: 100px;
+    top: 50%;
+    left: -50px;
+    transform: translateY(-50%);
+  }
+
+  .header__navItem__shadow {
+    font-size: 100px;
+    line-height: 100px;
+    bottom: 50%;
+    right: -50px;
+    transform: translateY(50%);
+  }
 }
 
 /* Main
