@@ -118,17 +118,31 @@ pre, code {
   margin-left: auto;
   height: 65px;
   position: relative;
-  padding: 0 30px;
+  /* fixme */
+  padding: 0 22px 0 30px;
   display: flex;
   align-items: center;
 }
 
 .header__link {
-  display: block;
-  margin-top: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   font-size: 24px;
-  font-weight: 700;
-  line-height: 35px;
+  width: 70px;
+}
+
+/* fixme */
+.header__link svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* fixme */
+.list--quotes .header__link svg,
+.single--quote .header__link svg {
+  fill: #5a5a5a;
 }
 
 .header__menuButton {
@@ -151,7 +165,7 @@ pre, code {
 .iconMenuHamburger {
   position: relative;
   display: block;
-  width: 23px;
+  width: 24px;
   height: 13px;
   color: #000;
 }
@@ -353,7 +367,7 @@ pre, code {
 }
 
 .single .main {
-  padding-top: 120px;
+  padding-top: 180px;
   padding-bottom: 30px;
 }
 
@@ -453,6 +467,12 @@ pre, code {
   flex-direction: column;
   background: #fff;
   margin-bottom: 60px;
+}
+
+@media (max-width: 767px) {
+  .featured-post {
+    padding-top: 120px;
+  }
 }
 
 .post-entry.post-entry--first:hover {
@@ -573,6 +593,16 @@ pre, code {
 
 .post-entry--image:hover .post-thumbnail {
   filter: grayscale(0) contrast(1);
+}
+
+@media (max-width: 767px) {
+  .post-entry {
+    border-radius: 0;
+  }
+
+  .post-entry:active {
+    transform: none;
+  }
 }
 
 .post-thumbnail {
