@@ -457,8 +457,7 @@ pre, code {
   position: relative;
   max-width: 100vw;
   width: 100vw;
-  min-height: 500px;
-  height: 86vh;
+  min-height: 86vh;
   border-radius: 0;
   padding: 60px 0 25px;
   display: flex;
@@ -469,9 +468,11 @@ pre, code {
   margin-bottom: 60px;
 }
 
+/* fixme */
 @media (max-width: 767px) {
   .featured-post {
     padding-top: 120px;
+    margin-bottom: 0;
   }
 }
 
@@ -582,6 +583,34 @@ pre, code {
   margin-top: 25px;
 }
 
+/* fixme */
+@media (max-width: 767px) {
+  .post-entry + .post-entry {
+    margin-top: 0;
+  }
+
+  .post-header {
+    position: relative;
+  }
+
+  .list .post-header::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -30px;
+    width: 10px;
+    transform: translateX(-50%);
+    background-color: rgba(0,0,0,.8);
+  }
+
+  .list--quotes .post-header::before,
+  .featured-post .post-header::before {
+    display: none;
+  }
+}
+
 .post-entry:hover {
   box-shadow: 0 5px 40px -5px rgba(0, 0, 0, .1);
 }
@@ -602,6 +631,8 @@ pre, code {
 
   .post-entry:active {
     transform: none;
+    transition: none;
+    box-shadow: none;
   }
 }
 
