@@ -53,7 +53,7 @@
 {{- $classes_string := delimit $classes " " -}}
 <body class="{{ $classes_string }}">
   <header class="header">
-    <a class="header__link" href="{{ .Site.BaseURL }}">{{ .Site.Title | safeHTML }}</a>
+    <a class="header__link" href="{{ .Site.BaseURL }}">{{ .Site.Params.LogoImg | default .Site.Params.Title | safeHTML }}</a>
     <div class="header__nav js-header-menu-button">
       <span class="header__menuButton">
         <span class="iconMenuHamburger"></span>
