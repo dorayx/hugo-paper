@@ -697,7 +697,6 @@ pre, code {
 .post-content {
   width: 100%;
   padding-top: 30px;
-  word-wrap: break-word;
   font-size: 17px;
   line-height: 1.85;
 }
