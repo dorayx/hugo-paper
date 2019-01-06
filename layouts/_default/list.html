@@ -1,14 +1,4 @@
 {{- partial "header.html" . -}}
-{{- if not .IsHome -}}
-<header class="list-header">
-  {{- if eq .Data.Singular "tag" -}}
-    <span>Tagged in</span>
-    <h1 class="list-title">{{- .Data.Term -}}</h1>
-  {{- else -}}
-    <h1 class="list-title">{{ .Page.Type | pluralize | humanize }}</h1>
-  {{- end -}}
-</header>
-{{- end -}}
 
 {{- if .Params.type -}}
   {{- $items := where (where .Pages "Type" "eq" ".Params.type") ".Params.early_access" "!=" "true" -}}
@@ -16,8 +6,8 @@
 {{- else -}}
   {{- $posts := where (where .Pages "Type" "eq" "posts") ".Params.early_access" "!=" "true" -}}
   {{- $gallery := (where .Pages "Type" "eq" "image") | first 3 -}}
-  {{- $quotes := (where .Pages "Type" "eq" "quote") | first 3 -}}
-  {{- .Scratch.Set "hasQuote" $quotes -}}
+  {{- $quotes := slice -}}
+  {{- .Scratch.Set "has_quota" $quotes -}}
   {{- $latest_posts := $posts | first 1 -}}
   {{- $ordinary_posts := $posts | after 1 -}}
   {{- $ordinary_items := ($quotes | union $gallery | union $ordinary_posts).ByDate.Reverse -}}
@@ -28,78 +18,22 @@
 {{- if gt $paginator.TotalPages 0 -}}
   {{- range $index, $page := $paginator.Pages -}}
     {{- $should_tag_latest_post := (and $.IsHome (eq $paginator.PageNumber 1) (eq $index 0)) -}}
-    {{- $is_image_type := (eq $page.Params.type "image") -}}
-    {{- $is_quote_type := (eq $page.Params.type "quote") -}}
 
-    {{- if $should_tag_latest_post -}}
-      {{- .Scratch.Set "postClass" (slice "post-entry" "post-entry--first") -}}
-      {{- .Scratch.Set "firstEmoji" "<span class=\"welcome-emoji\">👉</span>" -}}
-    {{- else -}}
-      {{- $classes := (slice "post-entry") -}}
-      {{- $classes := ($classes | append (cond $is_image_type "post-entry--image" "" )) -}}
-      {{- $classes := ($classes | append (cond $is_quote_type "post-entry--quote" "" )) -}}
-      {{- .Scratch.Set "postClass" $classes -}}
-    {{- end -}}
+  	{{- $classes := slice "list__post" "post" "timeline" -}}
+    {{- $classes := ($classes | append (cond $should_tag_latest_post "post--top" "" )) -}}
+  	{{- .Scratch.Set "post_classes" $classes -}}
 
-    {{- $post_class := delimit (.Scratch.Get `postClass`) " " -}}
-    {{- if $should_tag_latest_post -}}
-      <div class="featured-post">
-    {{- end -}}
-      <article class="post {{ $post_class }}">
-      <a class="post-link" href="{{ .Permalink }}"></a>
-      {{- if $is_image_type -}}
-        {{- $image_regexp := "<img.*?src=\"[^\\s]+\".*?/>" -}}
-        {{- $src_regexp := "(https?:)?//?([^\"]+)" -}}
-        {{- $thumbnail_match_results := (.Content | findRE $image_regexp) -}}
-        {{- $thumbnail_raw_html := (index $thumbnail_match_results 0) -}}
-        {{- $imgsrc_match_results := $thumbnail_raw_html | findRE $src_regexp -}}
-        {{- $imgsrc := (index $imgsrc_match_results 0) -}}
-        <div class="post-thumbnail" style="background-image: url({{ $imgsrc }})">
-          <div class="post-thumbnail__description"><p>{{- .Summary  | plainify | htmlUnescape -}}</p></div>
-        </div>
-      {{- else if $is_quote_type -}}
-        {{- $quote_author := .Params.author -}}
-        {{- $quote_comment := .Content | replaceRE "<blockquote.*?>(.|\n)*?</blockquote>" "" | plainify | chomp -}}
-        {{- $quote_content_classes := slice "post-quote__block" "js-font-notoserifcjktc" -}}
-        {{- $quote_content_classes := $quote_content_classes | append (cond .Params.isCJKQuote "post-quote__block--cjk" "") -}}
-        <header class="post-header post-quote">
-          {{- $blockquote := findRE "<blockquote.*?>(.|\n)*?</blockquote>" .Content 1 -}}
-          {{- range $blockquote -}}
-            {{- $quote_content_element := delimit $quote_content_classes " " | printf "<blockquote class=\"%s\">" -}}
-            {{- $quote_content := . | replaceRE "<blockquote.*?>" $quote_content_element -}}
-            {{- $quote_content | safeHTML -}}
-            <div class="post-quote__author">by {{ $quote_author | default "anonymous" }}</div>
-            {{- if $quote_comment -}}
-              <p class="post-quote__comment post-quote__comment--summary">{{- $quote_comment -}}</p>
-            {{- end -}}
-          {{- end -}}
-        </header>
-      {{- else -}}
-        <header class="post-header">
-          {{- safeHTML (.Scratch.Get `firstEmoji`) -}}
-          <h2 class="post-title">{{- .Title -}}</h2>
-        </header>
-        <p class="post-summary">{{- .Summary | plainify | htmlUnescape -}}...</p>
-        <footer class="post-footer">
-          <time class="post-meta">{{- .Date.Format "2006.1.2" -}}</time>
-        </footer>
-      {{- end -}}
+    {{- $post_class := delimit (.Scratch.Get `post_classes`) " " -}}
+    <article class="{{ trim $post_class " " }}">
+      <a class="post__link" href="{{ .Permalink }}">
+        <h1 class="post__title">{{- .Title -}}</h2>
+      </a>
+      <p class="post__summary">{{- .Summary | plainify | htmlUnescape -}}...</p>
+      <span class="post__createdAt timeline__dateContainer">
+        <time class="timeline__date">{{- .Date.Format "2006.1.2" -}}</time>
+      </span>
     </article>
-    {{- if $should_tag_latest_post -}}
-      </div>
-    {{- end -}}
   {{- end -}}
 {{- end -}}
-{{- if gt $paginator.TotalPages 1 -}}
-<footer class="list-footer">
-  <nav class="pagination">
-    {{- if $paginator.HasPrev -}}
-    <a class="pagination-prev" href="{{ $paginator.Prev.URL }}">← {{- i18n "prevPage" -}}</a>
-    {{- end -}}
-    {{- if $paginator.HasNext -}}
-    <a class="pagination-next" href="{{ $paginator.Next.URL }}">{{- i18n "nextPage" -}} →</a>
-    {{- end -}}
-  </nav>
-</footer>
-{{- end -}}
+
 {{- partial "footer.html" . -}}

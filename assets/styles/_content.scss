@@ -1,0 +1,49 @@
+.content {
+  line-height: 1.85;
+  font-size: 17px;
+
+  h2, h3, h4 {
+    margin-top: 40px;
+    margin-bottom: 15px;
+  }
+
+  p {
+    @extend %paragraph;
+    line-height: inherit;
+    font-size: inherit;
+    margin-bottom: 20px;
+  }
+
+  b, strong {
+    font-weight: bolder;
+    padding: 0 2px;
+    color: #fff;
+  }
+
+  a {
+    @extend %anchor;
+    border-bottom: 3px solid $decoration_secondary_color;
+    &:hover {
+      border-bottom-style: dashed;
+    }
+  }
+
+  code:not(.hljs) {
+    color: $brand_color;
+
+    @at-root {
+      @supports (-webkit-background-clip: text) {
+        & {
+          background: linear-gradient(to right,$brand_color,saturate($brand_color, 25%));
+          -webkit-background-clip: text;
+          -webkit-text-fill-color: transparent;
+          text-shadow: none;
+        }
+      }
+    }
+  }
+
+  pre {
+    margin: $base_spacing 0;
+  }
+}

@@ -1,0 +1,33 @@
+.footer {
+  $left_alignment: $base_spacing + $logo_size + $margin_left_to_logo;
+  display: flex;
+  align-items: flex-start;
+  padding: $base_spacing $base_spacing $base_spacing $left_alignment;
+  font-size: $footnote_font_size;
+  color: $decoration_secondary_color;
+
+  @include media("<=tablet") {
+    flex-direction: column;
+    align-items: center;
+    padding: 0;
+    margin-bottom: $base_spacing;
+  }
+
+  @include media(">=tablet") {
+    & > span + span {
+      &::before {
+        margin: 0 2px;
+        content: "·";
+      }
+    }
+  }
+
+  &__link {
+    @extend %anchor;
+    font-weight: bold;
+
+    &:hover {
+      color: $decoration_primary_color;
+    }
+  }
+}

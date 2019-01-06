@@ -1,0 +1,78 @@
+@import "variables";
+@import "reset";
+@import "../../node_modules/include-media/dist/include-media";
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, .2);
+  border-radius: 3px;
+}
+
+html {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  position: relative;
+
+  margin: 0;
+  padding: 0;
+
+  width: 100vw;
+  min-height: 100vh;
+
+  font-family: $text_primary_fonts;
+  color: $text_primary_color;
+  font-size: 20px;
+  line-height: 1.6;
+
+  background-color: $background_color;
+
+  overflow-x: hidden;
+
+  @at-root .body {
+    margin: 0 auto;
+  }
+}
+
+.body {
+  max-width: 960px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  &__header {
+    flex: none;
+    z-index: 999;
+  }
+
+  &__main {
+    flex: 1;
+    padding: 0 $base_spacing;
+  }
+
+  &__footer {
+    flex: none;
+  }
+}
+
+@import "header";
+@import "footer";
+@import "main";
+@import "post";
+@import "content";

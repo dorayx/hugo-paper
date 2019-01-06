@@ -2,73 +2,72 @@
 <html lang="{{ .Site.LanguageCode }}">
 <head>
   <meta charset="utf-8">
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="theme-color" content="#404040" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="renderer" content="webkit">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, shrink-to-fit=no, user-scalable=no">
   <!-- Title -->
   <title>
-    {{- if not .IsHome }}
-    {{- if eq .Kind "page" }}{{ .Title }}
-    {{- else if eq .Data.Singular "tag" }}{{ .Data.Term }}
-    {{- else }}Posts
-    {{- end }} - {{ end }}
+    {{- if not .IsHome -}}
+    {{- if eq .Kind "page" -}}{{ .Title }}
+    {{- else if eq .Data.Singular "tag" -}}{{ .Data.Term }}
+    {{- else -}}Articles
+    {{- end -}} - {{- end -}}
     {{- .Site.Title -}}
   </title>
   <!-- Meta -->
-  {{- if eq .Kind "page" }}
+  {{- if eq .Kind "page" -}}
   <meta name="description" content="{{ .Summary }}">
   <meta name="author" content="{{ .Params.author | default .Site.Params.author }}">
-  {{ else }}
+  {{- else -}}
   <meta name="description" content="{{ .Site.Params.description }}">
   <meta name="author" content="{{ .Site.Params.author }}">
-  {{ end -}}
+  {{- end -}}
   <link rel="dns-prefetch" href="https://fonts.googleapis.com">
   <link rel="dns-prefetch" href="https://cdn.bootcss.com">
-  <link rel="dns-prefetch" href="{{ .Site.BaseURL }}">
   <!-- Styles -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Cinzel:700" rel="stylesheet">
-  <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
-  {{ $css := resources.Get "css/style.css" | resources.Minify | resources.Fingerprint }}
+  <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">  <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
+  {{- $sassOptions := (dict "targetPath" "style.css" "outputStyle" "compressed") -}}
+  {{- $css := resources.Get "styles/base.scss" | resources.ToCSS $sassOptions | resources.Fingerprint -}}
   <link href="{{ $css.Permalink }}" rel="stylesheet">
   <!-- Favicons -->
-  {{ $apple_favicon := resources.Get "img/apple-touch-icon.png" | resources.Fingerprint }}
-  {{ $favicon := resources.Get "img/favicon.ico" | resources.Fingerprint }}
+  {{- $apple_favicon := resources.Get "img/apple-touch-icon.png" | resources.Fingerprint -}}
+  {{- $favicon := resources.Get "img/favicon.ico" | resources.Fingerprint -}}
   <link rel="apple-touch-icon" href="{{ $apple_favicon.Permalink }}">
   <link rel="icon" href="{{ $favicon.Permalink }}">
   <!-- Generator -->
   <meta name="generator" content="Hugo {{ .Hugo.Version }}">
   <!-- RSS -->
   <link rel="alternate" type="application/atom+xml" href="{{ .Site.BaseURL }}index.xml" title="{{ .Site.Title }}">
-  {{ if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production")  }}
-    {{ template "_internal/google_analytics_async.html" . }}
-  {{ end }}
+  {{ if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production") }}
+    {{- template "_internal/google_analytics_async.html" . -}}
+  {{- end -}}
 </head>
-{{- $classes := cond (eq .Kind "page") "single" "list" | slice "body" "js-body" -}}
+{{- $classes := cond (eq .Kind "page") "single" "list" | slice -}}
 {{- $classes := $classes | append (cond (.IsHome) "home" "") -}}
 {{- $classes := $classes | append (cond (eq .Type "image") "single--image" "") -}}
 {{- $classes := $classes | append (cond (eq .Type "quote") "single--quote" "") -}}
 {{- $classes := $classes | append (cond (eq .Type "quotes") "list--quotes" "") -}}
 {{- $classes_string := delimit $classes " " -}}
-<body class="{{ $classes_string }}">
-  <header class="header">
-    <a class="header__link" href="{{ .Site.BaseURL }}">{{ .Site.Params.LogoImg | default .Site.Params.Title | safeHTML }}</a>
-    <div class="header__nav js-header-menu-button">
-      <span class="header__menuButton">
-        <span class="iconMenuHamburger"></span>
-      </span>
-      <span class="header__menuCover"></span>
-      <ul class="header__menuContent">
-        {{ $currentPage := . }}
-        {{ range .Site.Menus.main }}
-        <li class="header__navItem{{ if $currentPage.IsMenuCurrent `main` . }} header__navItem--active{{ end }}">
-          <span class="header__navItem__headline js-font-notoserifcjktc">{{ .Pre }}</span>
-          <span class="header__navItem__shadow js-font-notoserifcjktc">{{ .Pre }}</span>
-          <a class="header__navItem__text header__navLink" href="{{ .URL }}">{{ .Name }}</a>
-        </li>
-        {{ end }}
+<body class="{{ trim $classes_string " "}}">
+  <div class="body">
+    <header class="body__header header">
+      <a class="header__logo logo" href="{{ .Site.BaseURL }}">
+        {{- $logo := resources.Get "img/logo.png" | resources.Fingerprint -}}
+        <img class="logo__img" src="{{ $logo.Permalink }}" alt="{{ .Site.Params.author }}">
+        <div class="logo__info">
+          <h1 class="logo__name">{{ .Site.Title }}</h1>
+          <p class="logo__description">{{ .Site.Params.description }}</p>
+        </div>
+      </a>
+      <ul class="header__menus menus">
+          {{- $currentPage := . -}}
+          {{- range .Site.Menus.main -}}
+          <li class="menus__item">
+            <a class="menus__link{{ if $currentPage.IsMenuCurrent `main` . }} menus__link--current{{ end }}" href="{{ .URL }}">{{ .Name }}</a>
+          </li>
+          {{- end -}}
       </ul>
-    </div>
-  </header>
-  <main class="main">
+    </header>
+    <main class="body__main main">
