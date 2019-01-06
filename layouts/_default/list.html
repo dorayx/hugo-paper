@@ -28,7 +28,10 @@
       <a class="post__link" href="{{ .Permalink }}">
         <h1 class="post__title">{{- .Title -}}</h2>
       </a>
-      <p class="post__summary">{{- .Summary | plainify | htmlUnescape -}}...</p>
+      <p class="post__summary">
+        <a class="post__coverLink" href="{{ .Permalink }}">
+        {{- .Summary | plainify | htmlUnescape -}}...</a>
+      </p>
       <span class="post__createdAt timeline__dateContainer">
         <time class="timeline__date">{{- .Date.Format "2006.1.2" -}}</time>
       </span>

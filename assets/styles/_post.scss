@@ -48,6 +48,11 @@
 
   &__tags {
   }
+
+  &__coverLink {
+    @extend %anchor;
+    display: block;
+  }
 }
 
 .timeline {
