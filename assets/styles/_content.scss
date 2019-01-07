@@ -44,6 +44,9 @@
   }
 
   pre {
-    margin: $base_spacing 0;
+    margin: $base_spacing -#{$base_spacing};
+    code {
+      -webkit-overflow-scrolling: touch;
+    }
   }
 }
