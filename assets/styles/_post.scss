@@ -53,6 +53,10 @@
     @extend %anchor;
     display: block;
   }
+
+  &__figure {
+    line-height: 1;
+  }
 }
 
 .timeline {
@@ -184,5 +188,56 @@
     &:hover {
       color: $text_primary_color;
     }
+  }
+}
+
+.figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: $base_spacing;
+  padding: 0;
+
+  &--left {
+    float: left;
+    margin-right: $base_spacing;
+    margin-left: 0;
+  }
+
+  &--right {
+    float: right;
+    margin-left: $base_spacing;
+    margin-right: 0;
+  }
+
+  &--block {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+  @include media("<tablet") {
+    margin-left: -#{$base_spacing};
+    margin-right: -#{$base_spacing};
+    float: none;
+
+    &__image {
+      width: 100%;
+    }
+  }
+
+  &__image {
+    max-width: 100%;
+  }
+
+  &__image[src$=\.svg] {
+    min-width: 355px;
+  }
+
+  &__description {
+    @extend %paragraph;
+    font-size: 14px;
+    margin-top: $base_spacing / 2;
+    color: $decoration_primary_color;
   }
 }

@@ -1,10 +1,9 @@
-{{ $prefix := .Get "prefix" }}
-{{ $src := .Get "src" }}
-{{ $title := .Get "title" }}
-{{ $relpath := $src | printf "%s/%s" $prefix | relURL }}
-<figure class="post-figure">
-    <img class="post-figure__image" src="{{ $relpath }}"  />
-    <figcaption>
-        <h4 class="post-figure__title">{{ $title }}</h4>
+{{ $resource := .Get "src" | relURL | resources.Get | resources.Fingerprint "md5" }}
+{{ $description := .Get "description" | markdownify }}
+{{ $layout := .Get "layout" | default "block" }}
+<figure class="post__figure figure figure--{{ $layout }}">
+    <img class="figure__image" src="{{ $resource.Permalink }}"  />
+    <figcaption class="figure__description">
+        {{- $description -}}
     </figcaption>
 </figure>
