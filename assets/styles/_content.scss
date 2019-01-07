@@ -44,9 +44,21 @@
   }
 
   pre {
-    margin: $base_spacing -#{$base_spacing};
+    clear: both;
+
     code {
+      border-radius: 6px;
       -webkit-overflow-scrolling: touch;
+      padding: $base_spacing $base_spacing;
+    }
+
+    @include media("<tablet") {
+      margin: $base_spacing -#{$base_spacing};
+      code {
+        border-radius: 0;
+        padding-left: $base_spacing;
+        padding-right: $base_spacing;
+      }
     }
   }
 }
