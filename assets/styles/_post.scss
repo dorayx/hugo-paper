@@ -199,13 +199,19 @@
   margin: $base_spacing;
   padding: 0;
 
+  %layout_image {
+    max-width: 355px;
+  }
+
   &--left {
+    @extend %layout_image;
     float: left;
     margin-right: $base_spacing;
     margin-left: 0;
   }
 
   &--right {
+    @extend %layout_image;
     float: right;
     margin-left: $base_spacing;
     margin-right: 0;
