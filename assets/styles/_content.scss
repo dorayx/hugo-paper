@@ -65,5 +65,30 @@
   .tex2jax {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    margin-bottom: 20px;
+
+    & + figure {
+      margin-top: 15px;
+    }
+  }
+
+  %table {
+    border: 1px solid $decoration_secondary_color;
+    border-collapse: collapse;
+  }
+
+  table {
+    @extend %table;
+    width: 100%;
+  }
+
+  th {
+    @extend %table;
+    padding: 5px;
+  }
+
+  td {
+    @extend %table;
+    padding: 2px 10px;
   }
 }
