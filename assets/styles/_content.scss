@@ -1,4 +1,6 @@
 .content {
+  $paragraph_gap: 22px;
+
   line-height: 1.85;
   font-size: 17px;
 
@@ -7,11 +9,16 @@
     margin-bottom: 15px;
   }
 
+  .figure {
+    margin-top: $paragraph_gap;
+    margin-bottom: $paragraph_gap;
+  }
+
   p {
     @extend %paragraph;
     line-height: inherit;
     font-size: inherit;
-    margin-bottom: 20px;
+    margin-bottom: $paragraph_gap;
   }
 
   b, strong {
@@ -65,11 +72,7 @@
   .tex2jax {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
-    margin-bottom: 20px;
-
-    & + figure {
-      margin-top: 15px;
-    }
+    margin-bottom: $paragraph_gap;
   }
 
   %table {
@@ -77,14 +80,53 @@
     border-collapse: collapse;
   }
 
+  .tableContainer {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+
+    &--sizeFull {
+      table {
+        width: 100%;
+      }
+    }
+
+    &--layoutCenter {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    @include media(">=tablet") {
+      &--layoutLeft {
+        float: left;
+        table {
+          margin-left: 0;
+        }
+      }
+
+      &--layoutRight {
+        float: right;
+        table {
+          margin-right: 0;
+        }
+      }
+    }
+  }
+
   table {
     @extend %table;
-    width: 100%;
+    margin: $paragraph_gap;
+
+    @include media("<tablet") {
+      width: 100%;
+      margin-left: 0;
+      margin-right: 0;
+    }
   }
 
   th {
     @extend %table;
-    padding: 5px;
+    padding: 5px 10px;
   }
 
   td {

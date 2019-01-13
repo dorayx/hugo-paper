@@ -1,4 +1,4 @@
-<div class="scrollable-table{{with .Get "type"}} scrollable-table--{{ . }}{{ end }}">
+<div class="tableContainer{{with .Get "type"}} tableContainer--{{ . }}{{ end }}">
   {{- with .Get "desc" -}}<b>{{ . | markdownify }}</b>{{- end -}}
   {{ .Inner | markdownify }}
 </div>
