@@ -242,7 +242,8 @@
   &__description {
     @extend %paragraph;
     font-size: 14px;
-    margin-top: $base_spacing / 2;
+    line-height: 1.6;
+    margin: $base_spacing / 2 $base_spacing  0;
     color: $decoration_primary_color;
   }
 }
