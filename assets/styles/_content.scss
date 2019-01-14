@@ -73,12 +73,6 @@
     }
   }
 
-  .tex2jax {
-    overflow: auto;
-    -webkit-overflow-scrolling: touch;
-    margin-bottom: $paragraph_gap;
-  }
-
   %table {
     border-collapse: collapse;
   }
@@ -103,6 +97,12 @@
       }
     }
 
+    &--cellEqual {
+      td {
+        width: 1%;
+      }
+    }
+
     &--layoutCenter {
       display: flex;
       align-items: center;
@@ -114,6 +114,7 @@
         float: left;
         table {
           margin-left: 0;
+          margin-right: $base_spacing;
         }
       }
 
@@ -121,6 +122,7 @@
         float: right;
         table {
           margin-right: 0;
+          margin-left: $base_spacing;
         }
       }
     }
@@ -130,7 +132,8 @@
     @extend %table;
     box-sizing: content-box;
     min-width: 270px;
-    margin: $paragraph_gap;
+    margin-top: $paragraph_gap;
+    margin-bottom: $paragraph_gap;
     position: relative;
 
     @include media("<tablet") {
@@ -162,5 +165,42 @@
     @extend %table;
     padding: 6px 10px;
     line-height: 1.6;
+  }
+
+  .tex2jax {
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-bottom: $paragraph_gap;
+
+    @include media("<tablet") {
+      margin-left: -$base_spacing;
+      margin-right: -$base_spacing;
+    }
+
+    &--left {
+      .MathJax_Display {
+        text-align: left !important;
+      }
+    }
+  }
+
+  .latexSolution {
+    min-width: 100%;
+    overflow: auto;
+    font-family: serif;
+    background-color: darken($decoration_primary_color, 42%);
+    padding: $base_spacing;
+    border-radius: 5px;
+
+    .tex2jax {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    @include media("<tablet") {
+      margin-left: -$base_spacing;
+      margin-right: -$base_spacing;
+      border-radius: 0;
+    }
   }
 }
