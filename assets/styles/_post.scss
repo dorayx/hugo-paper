@@ -17,6 +17,10 @@
     color: $text_primary_color;
   }
 
+  &--highlight {
+    color: $highlight_color;
+  }
+
   &__link {
     @extend %anchor;
     &:hover {
@@ -205,14 +209,14 @@
   &--left {
     @extend %layout_image;
     float: left;
-    margin-right: $base_spacing;
+    margin-right: $base_spacing * 1.5;
     margin-left: 0;
   }
 
   &--right {
     @extend %layout_image;
     float: right;
-    margin-left: $base_spacing;
+    margin-left: $base_spacing * 1.5;
     margin-right: 0;
   }
 
