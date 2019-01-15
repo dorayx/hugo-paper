@@ -4,6 +4,24 @@
   line-height: 1.86;
   font-size: 17px;
 
+  ol, ul {
+    display: flow-root;
+  }
+
+  ol {
+    list-style-type: decimal;
+
+    $nested_margin: 8px;
+    & ol {
+      list-style-type: lower-alpha;
+      margin: $nested_margin 0;
+      & ol {
+        margin: $nested_margin 0;
+        list-style-type: lower-roman;
+      }
+    }
+  }
+
   h2, h3, h4 {
     margin-top: 40px;
     margin-bottom: 15px;
@@ -11,11 +29,6 @@
 
   h2 {
     clear: both;
-  }
-
-  .figure {
-    margin-top: $paragraph_gap;
-    margin-bottom: $paragraph_gap;
   }
 
   p {
@@ -71,6 +84,11 @@
         padding-right: $base_spacing;
       }
     }
+  }
+
+  .figure {
+    margin-top: $paragraph_gap;
+    margin-bottom: $paragraph_gap;
   }
 
   %table {
