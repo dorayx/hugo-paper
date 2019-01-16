@@ -2,3 +2,9 @@
   color: $highlight_color;
   font-weight: bold;
 }
+
+%text_truncate {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

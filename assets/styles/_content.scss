@@ -240,4 +240,41 @@
       border-radius: 0;
     }
   }
+
+  .references {
+    margin-top: $base_spacing * 2;
+
+    h5 {
+      @extend %heading;
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    a {
+      display: flex;
+      border-bottom: none;
+      flex: none;
+      align-items: center;
+
+      &::after {
+        @extend %text_truncate;
+        padding-left: 10px;
+        flex: 1;
+        font-size: 12px;
+        max-width: 100%;
+        color: $decoration_secondary_color;
+        content: attr(href) "";
+      }
+
+      @include media("<tablet") {
+        flex-direction: column;
+        align-items: flex-start;
+
+        &::after {
+          padding-left: 0;
+          margin-bottom: 10px;
+        }
+      }
+    }
+  }
 }
