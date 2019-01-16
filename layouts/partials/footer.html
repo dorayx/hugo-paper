@@ -16,5 +16,8 @@
   {{- $jsHighlight := resources.Get "js/highlightjs.build.js" | resources.Minify | resources.Fingerprint -}}
   <script defer src="{{ $jsHighlight.Permalink }}"></script>
 {{- end -}}
+{{if eq (getenv "HUGO_ENV") "production" | or (eq .Site.Params.env "production")}}
+  {{ template "_internal/google_analytics_async.html" . }}
+{{end}}
 </body>
 </html>
