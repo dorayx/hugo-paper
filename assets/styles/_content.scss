@@ -36,6 +36,10 @@
     line-height: inherit;
     font-size: inherit;
     margin-bottom: $paragraph_gap;
+
+    &:last-of-type {
+      margin-bottom: 0;
+    }
   }
 
   b, strong {
@@ -50,6 +54,15 @@
     &:hover {
       border-bottom-style: dashed;
     }
+  }
+
+  blockquote {
+    border-left: 5px solid darken($decoration_secondary_color, 15%);
+    padding: $base_spacing / 2 $base_spacing;
+    margin: $base_spacing 0;
+    font-family: $text_handwriting_fonts;
+    font-weight: bold;
+    color: $text_secondary_color;
   }
 
   code:not(.hljs) {
@@ -195,6 +208,10 @@
       margin-right: -$base_spacing;
     }
 
+    &:last-of-type {
+      margin-bottom: 0;
+    }
+
     &--left {
       .MathJax_Display {
         text-align: left !important;
@@ -205,10 +222,12 @@
   .latexSolution {
     min-width: 100%;
     overflow: auto;
-    font-family: serif;
+    font-family: $text_handwriting_fonts;
     background-color: darken($decoration_primary_color, 42%);
     padding: $base_spacing;
     border-radius: 5px;
+    margin-top: $paragraph_gap;
+    margin-bottom: $paragraph_gap;
 
     .tex2jax {
       margin-left: 0;
