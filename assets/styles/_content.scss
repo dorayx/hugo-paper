@@ -100,8 +100,8 @@
   }
 
   .figure {
-    margin-top: $paragraph_gap;
-    margin-bottom: $paragraph_gap;
+    margin-top: $base_spacing;
+    margin-bottom: $base_spacing;
   }
 
   %table {
@@ -227,8 +227,8 @@
     background-color: darken($decoration_primary_color, 42%);
     padding: $base_spacing;
     border-radius: 5px;
-    margin-top: $paragraph_gap;
-    margin-bottom: $paragraph_gap;
+    margin-top: $base_spacing;
+    margin-bottom: $base_spacing;
 
     .tex2jax {
       margin-left: 0;
