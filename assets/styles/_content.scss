@@ -58,7 +58,7 @@
 
   blockquote {
     border-left: 5px solid darken($decoration_secondary_color, 15%);
-    padding: $base_spacing / 2 $base_spacing;
+    padding: $base_spacing / 2  0 $base_spacing $base_spacing / 2;
     margin: $base_spacing 0;
     font-family: $text_handwriting_fonts;
     font-weight: bold;
@@ -111,6 +111,8 @@
   .tableContainer {
     overflow: auto;
     -webkit-overflow-scrolling: touch;
+    margin-top: $base_spacing;
+    margin-bottom: $base_spacing;
 
     @include media("<tablet") {
       margin-left: -$base_spacing;
@@ -124,7 +126,7 @@
 
     &--sizeFull {
       table {
-        width: 100%;
+        min-width: 100%;
       }
     }
 
@@ -163,12 +165,10 @@
     @extend %table;
     box-sizing: content-box;
     min-width: 270px;
-    margin-top: $paragraph_gap;
-    margin-bottom: $paragraph_gap;
     position: relative;
 
     @include media("<tablet") {
-      width: 100%;
+      min-width: 100%;
       margin-left: 0;
       margin-right: 0;
     }
@@ -190,6 +190,7 @@
     background-color: darken($decoration_primary_color, 30%);
     position: sticky;
     top: 0;
+    white-space: nowrap;
   }
 
   td {
@@ -232,6 +233,7 @@
     .tex2jax {
       margin-left: 0;
       margin-right: 0;
+      overflow: visible;
     }
 
     @include media("<tablet") {
