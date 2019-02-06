@@ -21,6 +21,7 @@
 
   	{{- $classes := slice "list__post" "post" "timeline" -}}
     {{- $classes := ($classes | append (cond $should_tag_latest_post "post--top" "" )) -}}
+    {{- $classes := ($classes | append (cond (eq .Params.special true) "post--highlight" "" )) -}}
   	{{- .Scratch.Set "post_classes" $classes -}}
 
     {{- $post_class := delimit (.Scratch.Get `post_classes`) " " -}}

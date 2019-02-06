@@ -18,7 +18,7 @@
   }
 
   &--highlight {
-    color: $highlight_color;
+    color: $text_primary_color;
   }
 
   &__link {
@@ -195,6 +195,13 @@
   }
 }
 
+%image {
+  max-width: 355px;
+  @include media("<tablet") {
+    max-width: inherit;
+  }
+}
+
 .figure {
   display: flex;
   flex-direction: column;
@@ -202,19 +209,15 @@
   justify-content: center;
   padding: 0;
 
-  %layout_image {
-    max-width: 355px;
-  }
-
   &--left {
-    @extend %layout_image;
+    @extend %image;
     float: left;
     margin-right: $base_spacing * 1.5;
     margin-left: 0;
   }
 
   &--right {
-    @extend %layout_image;
+    @extend %image;
     float: right;
     margin-left: $base_spacing * 1.5;
     margin-right: 0;

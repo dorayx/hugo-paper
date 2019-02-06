@@ -27,8 +27,9 @@
   <link rel="dns-prefetch" href="https://cdn.bootcss.com">
   <link rel="dns-prefetch" href="https://d33wubrfki0l68.cloudfront.net">
   <!-- Styles -->
-  <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">  <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/atom-one-dark.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Staatliches" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Noto+Serif|Source+Sans+Pro:400,400i,700,700i" rel="stylesheet">
+  <link href="https://cdn.bootcss.com/highlight.js/9.12.0/styles/tomorrow-night-eighties.min.css" rel="stylesheet">
   {{- $sassOptions := (dict "targetPath" "style.css" "outputStyle" "compressed") -}}
   {{- $css := resources.Get "styles/base.scss" | resources.ToCSS $sassOptions | resources.Fingerprint -}}
   <link href="{{ $css.Permalink }}" rel="stylesheet">
