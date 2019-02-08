@@ -3,6 +3,17 @@
   font-weight: bold;
 }
 
+.u-blocknote {
+  display: block;
+  padding-top: $base_spacing / 2;
+  margin-top: $base_spacing;
+  padding-bottom: $base_spacing / 2;
+  margin-bottom: $base_spacing;
+  border: 1px dashed currentColor;
+  border-left: none;
+  border-right: none;
+}
+
 %text_truncate {
   text-overflow: ellipsis;
   white-space: nowrap;

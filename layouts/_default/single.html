@@ -13,6 +13,25 @@
       {{- end -}}
     </ul>
     {{- end -}}
+    {{- if ne .PublishDate .Lastmod -}}
+    <table class="post__histories histories">
+      <thead>
+        <tr>
+          <th>Updated</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+      {{- range .Params.histories -}}
+        {{- $item := split . "|" -}}
+        <tr>
+          <td>{{- index $item 0 -}}</td>
+          <td>{{- index $item 1 -}}</td>
+        </tr>
+      {{- end -}}
+      </tbody>
+    </table>
+    {{- end -}}
   </footer>
 </article>
 {{- if .Params.latex_syntax -}}

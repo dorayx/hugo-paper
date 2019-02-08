@@ -88,6 +88,10 @@
     }
   }
 
+  small {
+    color: $text_secondary_color;
+  }
+
   code:not(.hljs) {
     color: $brand_color;
 

@@ -254,3 +254,18 @@
     color: $decoration_primary_color;
   }
 }
+
+.histories {
+  display: table;
+  color: $decoration_secondary_color;
+  font-size: $footnote_font_size;
+  text-align: left;
+  width: 100%;
+  border-top: 1px solid $decoration_secondary_color;
+  margin-top: $base_spacing;
+  padding-top: $base_spacing / 2;
+
+  th:nth-child(2) {
+    width: 70%;
+  }
+}
