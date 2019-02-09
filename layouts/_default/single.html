@@ -13,6 +13,41 @@
       {{- end -}}
     </ul>
     {{- end -}}
+    {{- if .Params.original -}}
+    <div class="post__beer buyMeBeer">
+      <div class="buyMeBeer__headline">
+        <span class="buyMeBeer__text">BUY</span>
+        <span class="buyMeBeer__text">ME</span>
+        <span class="buyMeBeer__text">BEER</span>
+      </div>
+      <div class="buyMeBeer__rewards">
+        <div class="buyMeBeer__trigger">
+          <button class="buyMeBeer__button" style="color: #62e000; ">
+            <img class="buyMeBeer__icon" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTQ5NjgxMzA3Mjk1IiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwNzYgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjUzNTUiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjEwLjE1NjI1IiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNNDEwLjQ5MzcxMiA2NDQuMjI2Mjg4Yy02NC40NDg0NzEgMzYuOTc3MDYtNzQuMDA2ODgxLTIwLjc1OTk1OC03NC4wMDY4ODEtMjAuNzU5OTU4bC04MC43NzIxNzMtMTkzLjk4MzkzM2MtMzEuMDc4NTYyLTkyLjE3ODMwNSAyNi44OTc0OTctNDEuNTYxOTEgMjYuODk3NDk4LTQxLjU2MTkwOXM0OS43NDYzNzIgMzguNzMyMTgxIDg3LjUwMTkzIDYyLjMzMzcxMmMzNy43MzI5NDYgMjMuNjAyNjA4IDgwLjc0NTI1MyA2LjkyNzg4MiA4MC43NDUyNTQgNi45Mjc4ODJsNTI4LjA0Mzc0My0yNTAuODQyMzEzQzg4MS40Nzk4NzQgODEuNTc4NjY3IDcyMC41NDcxMjkgMCA1MzguMzUyNjU2IDAgMjQxLjAxMzYzNiAwIDAgMjE3LjA5ODc2OCAwIDQ4NC45MTk0NTNjMCAxNTQuMDQ2ODU2IDc5LjgwNjMxOCAyOTEuMTU0MTAzIDIwNC4xMTUxOCAzODAuMDE5MjE0TDE4MS42OTgwODYgOTk3LjU2NTUxcy0xMC45MjgwNSAzOC43MjAzMzYgMjYuOTQ1OTUyIDIwLjc1OTk1OGMyNS44MDg4OTItMTIuMjQzODUzIDkxLjYwMzMxNC01Ni4xMjI5NTMgMTMwLjc2ODM1My04Mi44Mjc3MSA2MS41NzAyODggMjIuMDgzMjk4IDEyOC42NTE0NDEgMzQuMzQ1NDU1IDE5OC45NzA0MTQgMzQuMzQ1NDU1IDI5Ny4zMTUzMzEgMCA1MzguMzc4NDk4LTIxNy4wOTg3NjggNTM4LjM3ODQ5OS00ODQuOTI0ODM3IDAtNzcuNTczMTE1LTIwLjMxMzEwMi0xNTAuODMzOC01Ni4yOTUyMzUtMjE1Ljg2MTU2OC0xNjguMjM2NDE2IDEwNC4xNzY2NTYtNTU5LjU0NTQ3MiAzNDYuMjgyMTI4LTYwOS45NzM0MzQgMzc1LjE2NzMyN3oiIHAtaWQ9IjUzNTYiIGZpbGw9IiM2MWUyMGEiPjwvcGF0aD48L3N2Zz4=" alt="微信">
+            WeChat
+            {{- $wechatQrCode := resources.Get "img/wechat-reward.png" | resources.Fingerprint -}}
+            <span class="buyMeBeer__qrcode qrcode" style="color: #DFB741">
+              <img class="qrcode__img" src="{{ $wechatQrCode.Permalink }}" alt="微信赞赏">
+              <span class="qrcode__desc">open <b>WeChat</b> to scan</span>
+            </span>
+          </button>
+        </div>
+        <div class="buyMeBeer__trigger">
+          <button class="buyMeBeer__button" style="color: #1296db">
+            <img class="buyMeBeer__icon" src="data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBzdGFuZGFsb25lPSJubyI/PjwhRE9DVFlQRSBzdmcgUFVCTElDICItLy9XM0MvL0RURCBTVkcgMS4xLy9FTiIgImh0dHA6Ly93d3cudzMub3JnL0dyYXBoaWNzL1NWRy8xLjEvRFREL3N2ZzExLmR0ZCI+PHN2ZyB0PSIxNTQ5Njc5MTQzMDM0IiBjbGFzcz0iaWNvbiIgc3R5bGU9IiIgdmlld0JveD0iMCAwIDEwMjQgMTAyNCIgdmVyc2lvbj0iMS4xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHAtaWQ9IjQ1OTQiIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCI+PGRlZnM+PHN0eWxlIHR5cGU9InRleHQvY3NzIj48L3N0eWxlPjwvZGVmcz48cGF0aCBkPSJNMjc5LjU0Mjg1NyA1NTAuNTE0Mjg2Yy0yMi42Mjg1NzEgMi4yODU3MTQtNjUuMjU3MTQzIDEyLjIyODU3MS04OC40NTcxNDMgMzIuNjg1NzE0LTY5LjcxNDI4NiA2MC41NzE0MjktMjggMTcxLjQyODU3MSAxMTMuMTQyODU3IDE3MS40Mjg1NzEgODIuMDU3MTQzIDAgMTY0LTUyLjIyODU3MSAyMjguMzQyODU4LTEzNi05MS42NTcxNDMtNDQuNDU3MTQzLTE2OS4yNTcxNDMtNzYuMzQyODU3LTI1My4wMjg1NzItNjguMTE0Mjg1eiBtNTI2LjI4NTcxNCA3Ni41NzE0MjhjMTE0LjQgMzguMTcxNDI5IDE3Ni44IDQ5LjE0Mjg1NyAxOTAuNTE0Mjg2IDUxLjJBNTA5LjYgNTA5LjYgMCAwIDAgMTAyNCA1MTJjMC0yODIuNzQyODU3LTIyOS4yNTcxNDMtNTEyLTUxMi01MTJTMCAyMjkuMjU3MTQzIDAgNTEyczIyOS4yNTcxNDMgNTEyIDUxMiA1MTJjMTc4LjE3MTQyOSAwIDMzNS4wODU3MTQtOTEuMDg1NzE0IDQyNi44NTcxNDMtMjI5LjE0Mjg1Ny04Ni40LTM0LjA1NzE0My0yNDQuMTE0Mjg2LTk3LjE0Mjg1Ny0zMjcuNzcxNDI5LTEzNy4yNTcxNDMtNzkuODg1NzE0IDk3Ljk0Mjg1Ny0xODIuOTcxNDI5IDE1Ny40ODU3MTQtMjg5Ljk0Mjg1NyAxNTcuNDg1NzE0LTE4MS4wMjg1NzEgMC0yNDIuNC0xNTcuODI4NTcxLTE1Ni44LTI2MS43MTQyODUgMTguNjI4NTcxLTIyLjYyODU3MSA1MC41MTQyODYtNDQuMjI4NTcxIDk5Ljc3MTQyOS01Ni40NTcxNDMgNzcuMTQyODU3LTE4Ljg1NzE0MyAyMDAgMTEuNzcxNDI5IDMxNS4wODU3MTQgNDkuNiAyMC42ODU3MTQtMzguMDU3MTQzIDM4LjE3MTQyOS03OS44ODU3MTQgNTEuMDg1NzE0LTEyNC40NTcxNDNIMjc1LjU0Mjg1N1YzODYuMjg1NzE0aDE4Mi44NTcxNDN2LTY0LjIyODU3MUgyMzYuOTE0Mjg2di0zNS43NzE0MjloMjIxLjQ4NTcxNHYtOTEuNTQyODU3czAtMTUuNDI4NTcxIDE1LjY1NzE0My0xNS40Mjg1NzFINTYzLjQyODU3MXYxMDYuOTcxNDI4aDIxOS4wODU3MTV2MzUuNzcxNDI5SDU2My41NDI4NTdWMzg2LjI4NTcxNGgxNzguNzQyODU3Yy0xNy4xNDI4NTcgNjkuODI4NTcxLTQzLjA4NTcxNCAxMzQuMTcxNDI5LTc1LjY1NzE0MyAxOTAuNjI4NTcyIDU0LjI4NTcxNCAxOS41NDI4NTcgMTAyLjk3MTQyOSAzOC4wNTcxNDMgMTM5LjIgNTAuMTcxNDI4eiIgcC1pZD0iNDU5NSIgZmlsbD0iIzEyOTZkYiI+PC9wYXRoPjwvc3ZnPg==" alt="支付宝">
+            Alipay
+            {{- $alipayQrCode := resources.Get "img/alipay-reward.png" | resources.Fingerprint -}}
+            <span class="buyMeBeer__qrcode qrcode">
+              <img class="qrcode__img" src="{{ $alipayQrCode.Permalink }}" alt="支付宝赞赏">
+              <span class="qrcode__desc">open <b>Alipay</b> to scan</span>
+            </span>
+          </button>
+        </div>
+      </div>
+      {{- $beerBg := resources.Get "img/beer.svg" | resources.Fingerprint -}}
+      <img class="buyMeBeer__bg" src="{{ $beerBg.Permalink }}" alt="Buy Me A Beer">
+    </div>
+    {{- end -}}
     {{- if ne .PublishDate .Lastmod -}}
     <table class="post__histories histories">
       <thead>
